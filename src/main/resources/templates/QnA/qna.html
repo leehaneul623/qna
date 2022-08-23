@@ -48,6 +48,7 @@
             <div class="flex w-full h-16 bg-gray-300 justify-end pr-4 items-center border-2 border-gray-300">
 
                 <a class="text-right">
+
                    <button th:classappend="${session.UserId} == null ? hidden" class="{{session.UserId != null ? btn btn-sm btn-active : hidden}}"  th:onclick="|location.href='/question/doWrite'|">글쓰기</button>
 
                 </a>
@@ -81,9 +82,9 @@
 
             <!-- 검색 -->
             <div class="flex mt-3 mb-8 items-center w-full h-12">
-                <form th:action="@{|/question/detail|}">
-                    <input type="hidden" name="page" value="0">
-                    <input class="h-1/2 ml-3 mr-2 border border-gray-500" type="text" name="kw" placeholder="">
+                <form th:action="@{|/question/detail|}" method="get" id="searchForm">
+                    <input class="h-1/2 ml-3 mr-2 border border-gray-500" type="text" id="kw" name="kw" th:value="${kw}" placeholder="검색">
+                    <input type="hidden" id="page" name="page" th:value="${paging.number}">
                     <button>
                         <img src="https://www.boom-style.com/design/kr/board_list_new_c_3_image_url_4.gif" alt="">
                     </button>

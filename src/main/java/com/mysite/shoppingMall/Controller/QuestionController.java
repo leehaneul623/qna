@@ -55,7 +55,6 @@ public class QuestionController {
 
     }
 
-
     @RequestMapping("/detail/{id}") // 단건조회
     public String showDetail(Model model, @PathVariable("id") Integer id){
         Question question = this.questionService.getQuestion(id);
@@ -73,6 +72,11 @@ public class QuestionController {
         return "QnA/qna.html";
     }
 
+    @GetMapping("/board/modify/{id}")
+    public String boardModify(@PathVariable("id") Integer id){
+
+        return "boardmodify";
+    }
 
     //U 수정 ==============================================
     @RequestMapping("/doModify")
