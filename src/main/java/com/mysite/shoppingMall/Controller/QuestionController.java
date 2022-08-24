@@ -72,10 +72,11 @@ public class QuestionController {
         return "QnA/qna.html";
     }
 
-    @GetMapping("/board/modify/{id}")
-    public String boardModify(@PathVariable("id") Integer id){
+    @GetMapping("/modify/{id}")
+    public String questionModify(@PathVariable("id") Integer id, Model model){
 
-        return "boardmodify";
+        model.addAttribute("question", questionService.getQuestion(id));
+        return "QnA/boardmodify.html";
     }
 
     //U 수정 ==============================================

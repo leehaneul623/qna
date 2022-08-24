@@ -20,5 +20,5 @@ public class QuestionAnswer {
     @ManyToOne
     private Question question;
 
-    private LocalDateTime modifyDate;
+
 }

@@ -26,11 +26,13 @@ public class Question {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    private LocalDateTime modifyDate;
+
     @ManyToOne
     private MallUser mallUser;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<QuestionAnswer> questionAnswerList;
 
-    private LocalDateTime modifyDate;
+
 }

@@ -122,31 +122,36 @@ CREATE TABLE Question (
     `subject` VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     create_date DATETIME NOT NULL,
+    modify_date DATETIME NOT NULL,
     mall_user_id INT UNSIGNED NOT NULL
 );
 
 INSERT INTO Question SET
 create_date = NOW(),
-`subject` = '질문 1',
+`subject` = '안녕 1',
 content = '주문 내역은 어디서 확인하나요 ?',
+modify_date = NOW(),
 mall_user_id = 2;
 
 INSERT INTO Question SET
 create_date = NOW(),
 `subject` = '질문 2',
 content = '환불 기간은 어떻게 되나요 ?',
+modify_date = NOW(),
 mall_user_id = 2;
 
 INSERT INTO Question SET
 create_date = NOW(),
 `subject` = '질문 3',
 content = '교환 신청은 어떻게 하나요 ?',
+modify_date = NOW(),
 mall_user_id = 2;
 
 INSERT INTO Question SET
 create_date = NOW(),
 `subject` = '질문 4',
 content = '교환 발송은 언제 되나요 ?',
+modify_date = NOW(),
 mall_user_id = 2;
 
 SELECT * FROM Question;
