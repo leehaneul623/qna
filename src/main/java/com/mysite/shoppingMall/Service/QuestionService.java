@@ -1,5 +1,6 @@
 package com.mysite.shoppingMall.Service;
 
+import com.mysite.shoppingMall.Form.QuestionForm;
 import com.mysite.shoppingMall.Repository.QuestionRepository;
 import com.mysite.shoppingMall.Repository.UserRepository;
 import com.mysite.shoppingMall.Ut.Ut;
@@ -37,12 +38,12 @@ public class QuestionService {
         IsLogined isLogined = Ut.isLogined(session);
         MallUser mallUser = userRepository.findById(isLogined.getUserId()).get();
 
-        Question q = new Question();
-        q.setSubject(subject);
-        q.setContent(content);
-        q.setCreateDate(LocalDateTime.now());
-        q.setMallUser(mallUser);
-        this.questionRepository.save(q);
+        Question question = new Question();
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setCreateDate(LocalDateTime.now());
+        question.setMallUser(mallUser);
+        this.questionRepository.save(question);
     }
 
     public Question getQuestion(Integer id) {

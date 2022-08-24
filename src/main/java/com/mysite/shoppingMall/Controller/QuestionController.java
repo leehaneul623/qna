@@ -6,6 +6,7 @@ import com.mysite.shoppingMall.Repository.UserRepository;
 import com.mysite.shoppingMall.Service.QuestionService;
 import com.mysite.shoppingMall.Ut.Ut;
 import com.mysite.shoppingMall.Vo.Question;
+import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class QuestionController {
     //C 생성 ==============================================
     @GetMapping("/doWrite")
     public String doWrite(QuestionForm questionForm){
+
         return "QnA/write.html";
     }
 
@@ -79,32 +81,43 @@ public class QuestionController {
         return "QnA/boardmodify.html";
     }
 
-    //U 수정 ==============================================
-    @RequestMapping("/doModify")
-    @ResponseBody
-    public String doModify(Integer id, String subject, String content){
-        if(id == null){
-            return "게시물 번호를 입력해주세요.";
-        }
-        if(Ut.empty(subject)){
-            return "질문 번호를 입력해주세요.";
-        }
-        if(Ut.empty(content)){
-            return "질문 내용을 입력해주세요.";
-        }
-        if(!questionRepository.existsById(id)){
-            return "게시물이 없습니다.";
-        }
+    @PostMapping("/question/update/{id}")
+    public String questionUpdate(@PathVariable("id") Integer id, QuestionForm questionForm){ // question 제목이랑 내용을 받아옴
+        Question questionTemp = questionService.getQuestion(id); //question 이라는 객체를 만듬 = questionService.getQuestion(id) 기존에 있던 내용이 담겨서 옴
+        questionTemp.setSubject(questionForm.getSubject()); //기존에 있던 내용을 가지고 오고 새로 가져온 내용을 덮어 씌움.
+        questionTemp.setContent(questionForm.getContent());
 
-        Question question = questionRepository.findById(id).get();
+        questionService.doWrite(question); // 기존에 있던 객체 불러오고 거기에 새로 가져온 내용을 덮어 씌워서 저장함.
 
-        question.setCreateDate(LocalDateTime.now());
-        question.setSubject(subject);
-        question.setContent(content);
-
-        questionRepository.save(question);
-        return "%d번 질문이 수정 되었습니다.".formatted(question.getId());
+        return "redirect:/question/list";
     }
+
+    //U 수정 ==============================================
+//    @RequestMapping("/doModify")
+//    @ResponseBody
+//    public String doModify(Integer id, String subject, String content){
+//        if(id == null){
+//            return "게시물 번호를 입력해주세요.";
+//        }
+//        if(Ut.empty(subject)){
+//            return "질문 번호를 입력해주세요.";
+//        }
+//        if(Ut.empty(content)){
+//            return "질문 내용을 입력해주세요.";
+//        }
+//        if(!questionRepository.existsById(id)){
+//            return "게시물이 없습니다.";
+//        }
+//
+//        Question question = questionRepository.findById(id).get();
+//
+//        question.setCreateDate(LocalDateTime.now());
+//        question.setSubject(subject);
+//        question.setContent(content);
+//
+//        questionRepository.save(question);
+//        return "%d번 질문이 수정 되었습니다.".formatted(question.getId());
+//    }
 
 
     //D 삭제 ==============================================
